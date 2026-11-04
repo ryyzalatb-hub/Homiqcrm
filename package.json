@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/prebuild-dirs.js",
     "build": "next build",
     "typecheck": "tsc --noEmit",
     "test": "node scripts/verify-crm.js && node scripts/smoke-test.js",

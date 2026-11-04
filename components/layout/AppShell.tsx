@@ -5,7 +5,7 @@ import Sidebar from '@/components/layout/Sidebar';
 import Header from '@/components/layout/Header';
 import CommandPalette from '@/components/layout/CommandPalette';
 import AICopilotDrawer from '@/components/ai/AICopilotDrawer';
-import { Sparkles } from 'lucide-react';
+import DraggableAIFab from '@/components/ai/DraggableAIFab';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -37,20 +37,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       </div>
       <CommandPalette />
 
-      {/* Floating Global AI Co-Pilot Trigger Button - Ultra-Luxury Champagne Accent */}
-      <button
-        onClick={() => setIsAiOpen(true)}
-        className="fixed bottom-6 right-6 z-40 px-4 py-3 bg-gradient-to-r from-[#0D1426] via-[#15203D] to-[#0D1426] text-amber-200 rounded-full shadow-2xl shadow-black/80 hover:scale-105 active:scale-95 transition flex items-center gap-2.5 font-bold text-xs border border-amber-500/30 hover:border-amber-400 group backdrop-blur-xl"
-        title="Buka HOMIQ AI Co-Pilot"
-      >
-        <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-slate-950 shadow-md shadow-amber-500/40 group-hover:rotate-12 transition">
-          <Sparkles className="w-3.5 h-3.5 fill-current animate-pulse" />
-        </div>
-        <span className="hidden sm:inline tracking-tight font-display text-white">HOMIQ AI</span>
-        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-          COPILOT v3.5
-        </span>
-      </button>
+      {/* Floating Draggable HOMIQ AI Trigger Orb - Ultra-Luxury Compact */}
+      <DraggableAIFab onOpen={() => setIsAiOpen(true)} />
 
       {/* Global AI Copilot Drawer */}
       <AICopilotDrawer isOpen={isAiOpen} onClose={() => setIsAiOpen(false)} />
