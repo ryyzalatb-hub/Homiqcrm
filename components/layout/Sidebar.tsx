@@ -201,13 +201,13 @@ export default function Sidebar() {
   return (
     <>
       {/* Desktop Persistent Sidebar */}
-      <aside className="w-64 shrink-0 hidden md:block h-screen sticky top-0 z-30">
+      <aside className="w-64 shrink-0 hidden md:block h-screen sticky top-0 z-30 print:hidden">
         {sidebarContent}
       </aside>
 
       {/* Mobile Drawer Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 md:hidden flex animate-fadeIn">
+        <div className="fixed inset-0 z-50 md:hidden flex animate-fadeIn print:hidden">
           <div 
             className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm transition-opacity" 
             onClick={close} 

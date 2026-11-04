@@ -123,7 +123,7 @@ export default function Header() {
     : [];
 
   return (
-    <header className="h-16 bg-white/95 backdrop-blur-md border-b border-slate-200/90 flex items-center justify-between px-4 sm:px-6 lg:px-8 sticky top-0 z-30 shrink-0 shadow-2xs">
+    <header className="h-16 bg-white/95 backdrop-blur-md border-b border-slate-200/90 flex items-center justify-between px-4 sm:px-6 lg:px-8 sticky top-0 z-30 shrink-0 shadow-2xs print:hidden">
       
       {/* Left: Hamburger & Dynamic Breadcrumb */}
       <div className="flex items-center gap-3 min-w-0">
