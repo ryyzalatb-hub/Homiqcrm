@@ -1,0 +1,17 @@
+{
+  "name": "HOMIQ — Smart Property CRM",
+  "short_name": "HOMIQ CRM",
+  "description": "Smart Property Operating System & Multi-Tenant CRM untuk Developer Perumahan",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0F1D",
+  "theme_color": "#0A0F1D",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

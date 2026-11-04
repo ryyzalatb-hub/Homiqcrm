@@ -1,0 +1,7 @@
+# HOMIQ Smart Property CRM
+User-agent: *
+Allow: /
+Allow: /portal-kpr/
+Disallow: /api/
+Disallow: /super-admin/
+Disallow: /settings/
