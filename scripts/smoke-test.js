@@ -146,6 +146,19 @@ check('Sound chimes (Web Audio API) with topbar Mute/Unmute toggle verified', ()
   assert.ok(headerFile.includes('Volume2') && headerFile.includes('VolumeX'), 'Missing sound toggle in Header.tsx');
 });
 
+check('Ultra-luxury Draggable AI FAB (PointerEvents, viewport clamping, position persistence) verified', () => {
+  const fabPath = path.join(BASE_DIR, 'components/ai/DraggableAIFab.tsx');
+  const appShellPath = path.join(BASE_DIR, 'components/layout/AppShell.tsx');
+  assert.ok(fs.existsSync(fabPath), 'DraggableAIFab.tsx missing');
+  const fabContent = fs.readFileSync(fabPath, 'utf8');
+  const shellContent = fs.readFileSync(appShellPath, 'utf8');
+  assert.ok(shellContent.includes('<DraggableAIFab'), 'Missing DraggableAIFab in AppShell.tsx');
+  assert.ok(fabContent.includes('setPointerCapture'), 'Missing setPointerCapture in DraggableAIFab');
+  assert.ok(fabContent.includes('homiq_ai_fab_pos'), 'Missing homiq_ai_fab_pos in DraggableAIFab');
+  assert.ok(fabContent.includes('BUTTON_SIZE'), 'Missing BUTTON_SIZE in DraggableAIFab');
+  assert.ok(fabContent.includes('DRAG_THRESHOLD'), 'Missing DRAG_THRESHOLD in DraggableAIFab');
+});
+
 // 4. Audit Documentation & Deployment Files
 console.log('\n--- 4. AUDITING DOCUMENTATION & DEPLOYMENT PREPAREDNESS ---');
 check('README.md, DEPLOYMENT_GUIDE.md, and HOMIQ_PITCH_AND_DEMO_GUIDE.md exist and complete', () => {

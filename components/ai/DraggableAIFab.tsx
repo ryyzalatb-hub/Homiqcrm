@@ -18,7 +18,7 @@ export default function DraggableAIFab({ onOpen }: DraggableAIFabProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   const buttonRef = useRef<HTMLDivElement>(null);
-  const isDraggingRef = useRef(false);
+  const isPointerDownRef = useRef(false);
   const hasMovedRef = useRef(false);
   const currentPosRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const dragStartRef = useRef<{
@@ -40,6 +40,9 @@ export default function DraggableAIFab({ onOpen }: DraggableAIFabProps) {
 
   // Compute safe boundaries based on current viewport
   const getBounds = useCallback(() => {
+    if (typeof window === 'undefined') {
+      return { minX: PADDING, minY: PADDING, maxX: PADDING, maxY: PADDING };
+    }
     const maxX = Math.max(PADDING, window.innerWidth - BUTTON_SIZE - PADDING);
     const maxY = Math.max(PADDING, window.innerHeight - BUTTON_SIZE - PADDING);
     return { minX: PADDING, minY: PADDING, maxX, maxY };
@@ -49,28 +52,28 @@ export default function DraggableAIFab({ onOpen }: DraggableAIFabProps) {
   useEffect(() => {
     setIsMounted(true);
     const { minX, minY, maxX, maxY } = getBounds();
-    const defaultX = maxX;
-    const defaultY = maxY;
+    let initialX = maxX;
+    let initialY = maxY;
 
     try {
       const saved = localStorage.getItem('homiq_ai_fab_pos');
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (typeof parsed.x === 'number' && typeof parsed.y === 'number') {
-          const clamped = {
-            x: clamp(parsed.x, minX, maxX),
-            y: clamp(parsed.y, minY, maxY),
-          };
-          setPosition(clamped);
-          currentPosRef.current = clamped;
-          return;
+        if (
+          parsed &&
+          typeof parsed === 'object' &&
+          Number.isFinite(parsed.x) &&
+          Number.isFinite(parsed.y)
+        ) {
+          initialX = clamp(parsed.x, minX, maxX);
+          initialY = clamp(parsed.y, minY, maxY);
         }
       }
     } catch {
-      // ignore localStorage errors (e.g. private mode)
+      // ignore localStorage errors (e.g. private mode or SSR)
     }
 
-    const initial = { x: defaultX, y: defaultY };
+    const initial = { x: initialX, y: initialY };
     setPosition(initial);
     currentPosRef.current = initial;
 
@@ -84,6 +87,11 @@ export default function DraggableAIFab({ onOpen }: DraggableAIFabProps) {
           y: clamp(prev.y, b.minY, b.maxY),
         };
         currentPosRef.current = adjusted;
+        try {
+          localStorage.setItem('homiq_ai_fab_pos', JSON.stringify(adjusted));
+        } catch {
+          // ignore storage errors
+        }
         return adjusted;
       });
     };
@@ -97,10 +105,9 @@ export default function DraggableAIFab({ onOpen }: DraggableAIFabProps) {
     // Only primary button or touch contact
     if (e.button !== 0) return;
 
-    // Get current bounding position on screen to eliminate any initial jump
-    const rect = buttonRef.current?.getBoundingClientRect();
-    const currentX = rect ? rect.left : (position?.x ?? window.innerWidth - BUTTON_SIZE - PADDING);
-    const currentY = rect ? rect.top : (position?.y ?? window.innerHeight - BUTTON_SIZE - PADDING);
+    // Use currentPosRef to eliminate coordinate drift from CSS scale transforms
+    const currentX = currentPosRef.current.x || (position?.x ?? (window.innerWidth - BUTTON_SIZE - PADDING));
+    const currentY = currentPosRef.current.y || (position?.y ?? (window.innerHeight - BUTTON_SIZE - PADDING));
 
     dragStartRef.current = {
       startX: e.clientX,
@@ -109,9 +116,8 @@ export default function DraggableAIFab({ onOpen }: DraggableAIFabProps) {
       initialPosY: currentY,
     };
 
-    isDraggingRef.current = true;
+    isPointerDownRef.current = true;
     hasMovedRef.current = false;
-    setIsDragging(true);
 
     try {
       e.currentTarget.setPointerCapture(e.pointerId);
@@ -121,16 +127,17 @@ export default function DraggableAIFab({ onOpen }: DraggableAIFabProps) {
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDraggingRef.current) return;
+    if (!isPointerDownRef.current) return;
 
     const deltaX = e.clientX - dragStartRef.current.startX;
     const deltaY = e.clientY - dragStartRef.current.startY;
     const moveDistance = Math.hypot(deltaX, deltaY);
 
-    // Only initiate dragging movement once threshold is exceeded (> 5px)
+    // Only initiate dragging movement once threshold is exceeded (>= 5px)
     if (moveDistance >= DRAG_THRESHOLD) {
       if (!hasMovedRef.current) {
         hasMovedRef.current = true;
+        setIsDragging(true);
       }
 
       const bounds = getBounds();
@@ -142,19 +149,25 @@ export default function DraggableAIFab({ onOpen }: DraggableAIFabProps) {
     }
   };
 
-  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDraggingRef.current) return;
-
-    isDraggingRef.current = false;
+  const cleanupPointer = (e: React.PointerEvent<HTMLDivElement>) => {
+    isPointerDownRef.current = false;
     setIsDragging(false);
 
     try {
-      e.currentTarget.releasePointerCapture(e.pointerId);
+      if (e.currentTarget?.hasPointerCapture?.(e.pointerId)) {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      }
     } catch {
       // ignore
     }
+  };
 
-    if (hasMovedRef.current) {
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isPointerDownRef.current) return;
+    const moved = hasMovedRef.current;
+    cleanupPointer(e);
+
+    if (moved) {
       // Drag ended: persist new position to localStorage
       try {
         localStorage.setItem('homiq_ai_fab_pos', JSON.stringify(currentPosRef.current));
@@ -168,13 +181,7 @@ export default function DraggableAIFab({ onOpen }: DraggableAIFabProps) {
   };
 
   const handlePointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
-    isDraggingRef.current = false;
-    setIsDragging(false);
-    try {
-      e.currentTarget.releasePointerCapture(e.pointerId);
-    } catch {
-      // ignore
-    }
+    cleanupPointer(e);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -184,16 +191,21 @@ export default function DraggableAIFab({ onOpen }: DraggableAIFabProps) {
     }
   };
 
+  const isNearLeftEdge = position !== null && position.x < 180;
+
   return (
     <div
       ref={buttonRef}
       role="button"
       tabIndex={0}
       aria-label="HOMIQ AI Co-Pilot (Dapat digeser kemana saja)"
+      aria-haspopup="dialog"
+      aria-expanded={false}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerCancel}
+      onLostPointerCapture={handlePointerCancel}
       onKeyDown={handleKeyDown}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
@@ -251,9 +263,13 @@ export default function DraggableAIFab({ onOpen }: DraggableAIFabProps) {
           </div>
         </div>
 
-        {/* Luxury Micro Hover Tooltip */}
+        {/* Luxury Micro Hover Tooltip with Dynamic Screen Edge Positioning */}
         {showTooltip && !isDragging && (
-          <div className="absolute right-full top-1/2 -translate-y-1/2 mr-3 px-3 py-1.5 rounded-lg bg-obsidian-900/95 border border-gold-500/30 shadow-2xl backdrop-blur-md text-[11px] font-medium text-slate-200 whitespace-nowrap pointer-events-none animate-fadeIn flex items-center gap-1.5 z-50">
+          <div
+            className={`absolute top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-lg bg-obsidian-900/95 border border-gold-500/30 shadow-2xl backdrop-blur-md text-[11px] font-medium text-slate-200 whitespace-nowrap pointer-events-none animate-fadeIn flex items-center gap-1.5 z-50 ${
+              isNearLeftEdge ? 'left-full ml-3' : 'right-full mr-3'
+            }`}
+          >
             <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
             <span className="text-white font-serif font-bold">HOMIQ AI</span>
             <span className="text-slate-400 text-[10px] font-mono">• Geser kemana saja</span>
