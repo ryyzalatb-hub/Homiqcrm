@@ -25,6 +25,7 @@ import Link from 'next/link';
 import { DEMO_PROJECTS } from '@/lib/demo-data';
 import { buildWhatsAppLink } from '@/lib/whatsapp';
 import { useToast } from '@/components/ui/Toast';
+import VirtualTour360Modal from '@/components/proptech/VirtualTour360Modal';
 
 interface GalleryRoom {
   id: string;
@@ -195,6 +196,7 @@ export default function PropertyGalleryPage() {
   const { showToast } = useToast();
   const [selectedProjectId, setSelectedProjectId] = useState<string>('p1');
   const [selectedRoomIndex, setSelectedRoomIndex] = useState<number>(0);
+  const [isTourOpen, setIsTourOpen] = useState<boolean>(false);
 
   const currentProject = SHOWCASE_DATA.find(p => p.id === selectedProjectId) || SHOWCASE_DATA[0];
   const activeRoom = currentProject.rooms[selectedRoomIndex] || currentProject.rooms[0];
@@ -204,41 +206,50 @@ export default function PropertyGalleryPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-7xl mx-auto pb-12">
       
-      {/* Top Banner Header */}
-      <div className="crm-card bg-gradient-to-r from-[#0A0F1D] via-[#0F172A] to-[#1E293B] text-white p-6 sm:p-8 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden">
+      {/* Top Banner Header - Luxury Obsidian Slate */}
+      <div className="bg-[#0B1120] text-white p-6 sm:p-8 rounded-3xl border border-amber-500/25 shadow-2xl relative overflow-hidden">
+        <div className="absolute right-0 top-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-mono font-bold border border-blue-500/30 flex items-center gap-1.5">
-                <Camera className="w-3.5 h-3.5 text-blue-400" />
+              <span className="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-mono font-bold border border-amber-500/30 flex items-center gap-1.5">
+                <Camera className="w-3.5 h-3.5 text-amber-400" />
                 VIRTUAL SHOWROOM & ARCHITECTURE
               </span>
-              <span className="text-xs text-slate-400 font-medium">Resolusi Tinggi 4K</span>
+              <span className="text-xs text-slate-400 font-mono">Resolusi 4K Ultra HD</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-              Galeri Properti & Show Unit Virtual
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-display">
+              Galeri Properti & Show Unit Virtual 360°
             </h1>
-            <p className="text-slate-300 text-sm max-w-2xl leading-relaxed">
+            <p className="text-slate-300 text-xs sm:text-sm max-w-2xl leading-relaxed">
               Eksplorasi visual perumahan, arsitektur fasad muka, tata ruang interior, dan spesifikasi teknis bangunan yang dikembangkan oleh PT Garut Sejahtera Propertindo.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+            <button
+              onClick={() => setIsTourOpen(true)}
+              className="px-4 py-2.5 bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-300 hover:brightness-110 text-slate-950 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-amber-500/25"
+            >
+              <Compass className="w-4 h-4 text-slate-950 fill-current animate-spin" style={{ animationDuration: '8s' }} />
+              <span>Jelajah 360° Walkthrough VR</span>
+            </button>
             <button
               onClick={handleDownloadBrochure}
-              className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-sm shadow-blue-500/30"
+              className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 border border-slate-700 shadow-sm"
             >
-              <Download className="w-4 h-4" />
-              Unduh E-Katalog PDF
+              <Download className="w-4 h-4 text-amber-300" />
+              <span>Unduh E-Katalog PDF</span>
             </button>
             <Link
               href="/siteplan"
-              className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition flex items-center gap-2 border border-slate-700"
+              className="px-4 py-2.5 bg-[#0D1426] hover:bg-[#131C35] text-slate-200 rounded-xl text-xs font-bold transition flex items-center gap-2 border border-[#1C2640]"
             >
-              <Compass className="w-4 h-4 text-emerald-400" />
-              Pilih di Siteplan
+              <MapPin className="w-4 h-4 text-amber-400" />
+              <span>Pilih di Siteplan</span>
             </Link>
           </div>
         </div>
@@ -255,8 +266,8 @@ export default function PropertyGalleryPage() {
             }}
             className={`px-5 py-3 rounded-2xl text-xs font-extrabold transition shrink-0 flex items-center gap-3 border ${
               selectedProjectId === proj.id
-                ? 'bg-blue-600 border-blue-500 text-white shadow-md shadow-blue-500/30'
-                : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+                ? 'bg-gradient-to-r from-amber-500/20 via-amber-500/15 to-transparent border-amber-400 text-amber-300 shadow-md shadow-amber-500/10'
+                : 'bg-[#0D1426] border-[#1C2640] text-slate-400 hover:border-amber-500/30 hover:text-white'
             }`}
           >
             <Building2 className="w-4 h-4" />
@@ -444,6 +455,18 @@ export default function PropertyGalleryPage() {
         </div>
 
       </div>
+
+      {/* 360 Degree Virtual Tour Walkthrough Modal */}
+      <VirtualTour360Modal
+        isOpen={isTourOpen}
+        onClose={() => setIsTourOpen(false)}
+        projectName={currentProject.name}
+        unitType={currentProject.type}
+        onSelectBooking={() => {
+          setIsTourOpen(false);
+          window.location.href = '/siteplan';
+        }}
+      />
     </div>
   );
 }

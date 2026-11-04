@@ -287,47 +287,80 @@ export default function KprCalculatorPage() {
         </div>
       </div>
 
-      {/* Quick Project Presets */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-2xs">
-        <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="w-4 h-4 text-blue-600" />
-          <span className="text-xs font-bold text-slate-900 uppercase tracking-wider">Quick Presets Proyek Garut Sejahtera</span>
+      {/* Quick Project Presets & Leads Sync */}
+      <div className="p-4 rounded-2xl bg-[#0B1120] border border-amber-500/20 shadow-lg space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-amber-400" />
+            <span className="text-xs font-bold text-white font-display uppercase tracking-wider">Quick Presets Prospek CRM Garut</span>
+          </div>
+          <span className="text-[10px] font-mono text-amber-400">1-Click Auto Fill</span>
         </div>
+
+        {/* Lead Quick Selector Pills */}
+        <div className="flex flex-wrap gap-2 pt-1 border-b border-[#19243C] pb-3">
+          {[
+            { name: 'Bapak Hasanudin', phone: '082215269402', project: 'Bumi Cimanuk Asri', price: 166000000, type: 'subsidi' as KprType, rate: 5.0 },
+            { name: 'Bapak Nugraha', phone: '083138320817', project: 'Grand Karangpawitan', price: 285000000, type: 'komersial' as KprType, rate: 6.75 },
+            { name: 'Ibu Siti patonah', phone: '083857061667', project: 'Bumi Cimanuk Asri', price: 166000000, type: 'subsidi' as KprType, rate: 5.0 },
+            { name: 'Om Azhar pratama', phone: '0895704969810', project: 'Banyuresmi Hillside', price: 345000000, type: 'syariah' as KprType, rate: 7.25 },
+            { name: 'Neng Anggi julianti', phone: '08886066919', project: 'Bumi Cimanuk Asri', price: 166000000, type: 'subsidi' as KprType, rate: 5.0 },
+          ].map((lead, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                setBuyerName(lead.name);
+                setBuyerPhone(lead.phone);
+                handleSelectPreset(lead.project, lead.price, lead.type, lead.rate);
+              }}
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition flex items-center gap-1.5 ${
+                buyerName === lead.name
+                  ? 'bg-amber-500/20 text-amber-200 border-amber-400/60 shadow-sm shadow-amber-500/10'
+                  : 'bg-[#070B16] text-slate-400 border-[#1C2640] hover:text-white hover:border-amber-500/30'
+              }`}
+            >
+              <User className="w-3 h-3 text-amber-400" />
+              <span>{lead.name}</span>
+              <span className="text-[10px] text-slate-500 font-mono">({lead.project.split(' ')[0]})</span>
+            </button>
+          ))}
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             onClick={() => handleSelectPreset('Bumi Cimanuk Asri', 166000000, 'subsidi', 5.0)}
-            className="text-left p-3 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50/40 transition group"
+            className="text-left p-3 rounded-xl border border-[#1C2640] bg-[#070B16] hover:border-amber-400/60 hover:bg-[#0D1426] transition group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600">Bumi Cimanuk Asri</span>
-              <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">Subsidi FLPP</span>
+              <span className="text-xs font-bold text-white group-hover:text-amber-300 font-display">Bumi Cimanuk Asri</span>
+              <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-1.5 py-0.5 rounded-md font-mono">Subsidi FLPP</span>
             </div>
-            <p className="text-xs font-mono font-bold text-slate-600 mt-1">Rp 166.000.000</p>
-            <p className="text-[11px] text-slate-500 mt-0.5">Bunga 5.0% tetap &bull; Bebas PPN/BPHTB</p>
+            <p className="text-xs font-mono font-bold text-amber-300 mt-1">Rp 166.000.000</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">Bunga 5.0% tetap &bull; Bebas PPN/BPHTB</p>
           </button>
 
           <button
             onClick={() => handleSelectPreset('Grand Karangpawitan Residence', 385000000, 'komersial', 6.75)}
-            className="text-left p-3 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50/40 transition group"
+            className="text-left p-3 rounded-xl border border-[#1C2640] bg-[#070B16] hover:border-amber-400/60 hover:bg-[#0D1426] transition group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600">Grand Karangpawitan</span>
-              <span className="text-[10px] font-bold bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded">Komersial 45</span>
+              <span className="text-xs font-bold text-white group-hover:text-amber-300 font-display">Grand Karangpawitan</span>
+              <span className="text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30 px-1.5 py-0.5 rounded-md font-mono">Komersial 45</span>
             </div>
-            <p className="text-xs font-mono font-bold text-slate-600 mt-1">Rp 385.000.000</p>
-            <p className="text-[11px] text-slate-500 mt-0.5">Suku bunga floating promo 6.75%</p>
+            <p className="text-xs font-mono font-bold text-amber-300 mt-1">Rp 385.000.000</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">Suku bunga floating promo 6.75%</p>
           </button>
 
           <button
             onClick={() => handleSelectPreset('Banyuresmi Hillside', 450000000, 'syariah', 7.25)}
-            className="text-left p-3 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50/40 transition group"
+            className="text-left p-3 rounded-xl border border-[#1C2640] bg-[#070B16] hover:border-amber-400/60 hover:bg-[#0D1426] transition group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600">Banyuresmi Hillside</span>
-              <span className="text-[10px] font-bold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">Syariah Type 54</span>
+              <span className="text-xs font-bold text-white group-hover:text-amber-300 font-display">Banyuresmi Hillside</span>
+              <span className="text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1.5 py-0.5 rounded-md font-mono">Syariah Type 54</span>
             </div>
-            <p className="text-xs font-mono font-bold text-slate-600 mt-1">Rp 450.000.000</p>
-            <p className="text-[11px] text-slate-500 mt-0.5">Margin murabahah tetap 7.25%</p>
+            <p className="text-xs font-mono font-bold text-amber-300 mt-1">Rp 450.000.000</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">Margin murabahah tetap 7.25%</p>
           </button>
         </div>
       </div>
@@ -339,18 +372,18 @@ export default function KprCalculatorPage() {
         <div className="lg:col-span-7 space-y-6">
 
           {/* Card: Skema & Parameter */}
-          <div className="bg-white p-6 rounded-2xl border border-slate-200/90 shadow-2xs space-y-5">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                <Calculator className="w-4 h-4 text-blue-600" />
+          <div className="bg-[#0B1120] p-6 rounded-2xl border border-amber-500/20 shadow-xl space-y-5">
+            <div className="flex items-center justify-between border-b border-[#19243C] pb-3">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2 font-display">
+                <Calculator className="w-4 h-4 text-amber-400" />
                 Parameter Perhitungan KPR
               </h3>
-              <span className="text-xs text-slate-500">Kalkulasi Real-time</span>
+              <span className="text-xs text-amber-400 font-mono">Kalkulasi Real-time</span>
             </div>
 
             {/* KPR Type Selector Tabs */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 font-mono">
                 Jenis Program KPR
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -363,12 +396,12 @@ export default function KprCalculatorPage() {
                   }}
                   className={`py-2.5 px-3 rounded-xl text-xs font-bold transition flex flex-col items-center gap-1 border ${
                     kprType === 'subsidi'
-                      ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
-                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                      ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-500/20 font-black'
+                      : 'bg-[#070B16] text-slate-400 border-[#1C2640] hover:text-white'
                   }`}
                 >
                   <span>Subsidi FLPP</span>
-                  <span className={`text-[10px] font-normal ${kprType === 'subsidi' ? 'text-blue-100' : 'text-slate-500'}`}>
+                  <span className={`text-[10px] font-normal ${kprType === 'subsidi' ? 'text-slate-900 font-bold' : 'text-slate-400'}`}>
                     Flat 5.0% Tetap
                   </span>
                 </button>
@@ -382,12 +415,12 @@ export default function KprCalculatorPage() {
                   }}
                   className={`py-2.5 px-3 rounded-xl text-xs font-bold transition flex flex-col items-center gap-1 border ${
                     kprType === 'komersial'
-                      ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
-                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                      ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-500/20 font-black'
+                      : 'bg-[#070B16] text-slate-400 border-[#1C2640] hover:text-white'
                   }`}
                 >
                   <span>Komersial</span>
-                  <span className={`text-[10px] font-normal ${kprType === 'komersial' ? 'text-blue-100' : 'text-slate-500'}`}>
+                  <span className={`text-[10px] font-normal ${kprType === 'komersial' ? 'text-slate-900 font-bold' : 'text-slate-400'}`}>
                     Anuitas Bank
                   </span>
                 </button>
@@ -401,8 +434,8 @@ export default function KprCalculatorPage() {
                   }}
                   className={`py-2.5 px-3 rounded-xl text-xs font-bold transition flex flex-col items-center gap-1 border ${
                     kprType === 'syariah'
-                      ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
-                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                      ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-500/20 font-black'
+                      : 'bg-[#070B16] text-slate-400 border-[#1C2640] hover:text-white'
                   }`}
                 >
                   <span>Syariah</span>
@@ -416,21 +449,21 @@ export default function KprCalculatorPage() {
             {/* Harga Properti */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-bold text-slate-700">
+                <label className="text-xs font-bold text-slate-300 font-mono">
                   Harga Properti / Rumah
                 </label>
-                <span className="text-xs font-mono font-bold text-blue-600">
+                <span className="text-xs font-mono font-bold text-amber-300">
                   {formatRupiah(propertyPrice)}
                 </span>
               </div>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 font-mono">Rp</span>
                 <input
                   type="number"
                   step="1000000"
                   value={propertyPrice}
                   onChange={(e) => setPropertyPrice(Math.max(0, Number(e.target.value)))}
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition"
+                  className="w-full pl-10 pr-4 py-2.5 bg-[#070B16] border border-[#1C2640] rounded-xl text-xs font-mono font-bold text-white focus:border-amber-400 focus:outline-none transition"
                 />
               </div>
             </div>
@@ -438,10 +471,10 @@ export default function KprCalculatorPage() {
             {/* DP / Uang Muka */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-bold text-slate-700">
+                <label className="text-xs font-bold text-slate-300 font-mono">
                   Uang Muka / Down Payment ({dpPercentage}%)
                 </label>
-                <span className="text-xs font-mono font-bold text-slate-900">
+                <span className="text-xs font-mono font-bold text-amber-300">
                   {formatRupiah(calculations.dpAmount)}
                 </span>
               </div>
@@ -452,9 +485,9 @@ export default function KprCalculatorPage() {
                 step="5"
                 value={dpPercentage}
                 onChange={(e) => setDpPercentage(Number(e.target.value))}
-                className="w-full accent-blue-600 cursor-pointer"
+                className="w-full accent-amber-500 cursor-pointer"
               />
-              <div className="flex justify-between text-[11px] text-slate-600 font-mono mt-1">
+              <div className="flex justify-between text-[11px] text-slate-400 font-mono mt-1">
                 <span>0%</span>
                 <span>5% (FLPP)</span>
                 <span>10%</span>
@@ -468,13 +501,13 @@ export default function KprCalculatorPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Tenor */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                <label className="block text-xs font-bold text-slate-300 mb-1.5 font-mono">
                   Jangka Waktu Tenor (Tahun)
                 </label>
                 <select
                   value={tenorYears}
                   onChange={(e) => setTenorYears(Number(e.target.value))}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition"
+                  className="w-full px-3.5 py-2.5 bg-[#070B16] border border-[#1C2640] rounded-xl text-xs font-bold text-white focus:border-amber-400 focus:outline-none transition"
                 >
                   <option value={10}>10 Tahun (120 Bulan)</option>
                   <option value={15}>15 Tahun (180 Bulan)</option>
@@ -486,10 +519,10 @@ export default function KprCalculatorPage() {
               {/* Suku Bunga */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-bold text-slate-700">
+                  <label className="text-xs font-bold text-slate-300 font-mono">
                     Suku Bunga / Tahun (%)
                   </label>
-                  <span className="text-xs font-mono font-bold text-slate-900">
+                  <span className="text-xs font-mono font-bold text-amber-300">
                     {interestRate}%
                   </span>
                 </div>
@@ -499,7 +532,7 @@ export default function KprCalculatorPage() {
                     step="0.25"
                     value={interestRate}
                     onChange={(e) => setInterestRate(Number(e.target.value))}
-                    className="w-full pl-3.5 pr-8 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition"
+                    className="w-full pl-3.5 pr-8 py-2.5 bg-[#070B16] border border-[#1C2640] rounded-xl text-xs font-mono font-bold text-white focus:border-amber-400 focus:outline-none transition"
                   />
                   <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">%</span>
                 </div>
@@ -531,41 +564,41 @@ export default function KprCalculatorPage() {
           </div>
 
           {/* Card: Personalisasi Penawaran WhatsApp */}
-          <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs space-y-4">
-            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-              <User className="w-3.5 h-3.5 text-blue-600" />
+          <div className="bg-[#0B1120] p-5 rounded-2xl border border-amber-500/20 shadow-xl space-y-4">
+            <h3 className="text-xs font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2 font-display">
+              <User className="w-3.5 h-3.5 text-amber-400" />
               Personalisasi Penawaran WhatsApp
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-600 mb-1">Nama Calon Pembeli</label>
+                <label className="block text-[11px] font-semibold text-slate-400 mb-1 font-mono">Nama Calon Pembeli</label>
                 <input
                   type="text"
                   value={buyerName}
                   onChange={(e) => setBuyerName(e.target.value)}
                   placeholder="Contoh: Bapak Agus Setiawan"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
+                  className="w-full px-3 py-2 bg-[#070B16] border border-[#1C2640] rounded-xl text-xs font-medium text-white focus:outline-none focus:border-amber-400"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-600 mb-1">Nomor WhatsApp</label>
+                <label className="block text-[11px] font-semibold text-slate-400 mb-1 font-mono">Nomor WhatsApp</label>
                 <input
                   type="text"
                   value={buyerPhone}
                   onChange={(e) => setBuyerPhone(e.target.value)}
                   placeholder="Contoh: 0812-xxxx-xxxx"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
+                  className="w-full px-3 py-2 bg-[#070B16] border border-[#1C2640] rounded-xl text-xs font-mono text-white focus:outline-none focus:border-amber-400"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-600 mb-1">PIC Marketing Pengirim</label>
+                <label className="block text-[11px] font-semibold text-slate-400 mb-1 font-mono">PIC Marketing Pengirim</label>
                 <select
                   value={picMarketing}
                   onChange={(e) => setPicMarketing(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
+                  className="w-full px-3 py-2 bg-[#070B16] border border-[#1C2640] rounded-xl text-xs font-medium text-white focus:outline-none focus:border-amber-400"
                 >
                   <option value="Kang Dika Pratama">Kang Dika Pratama</option>
                   <option value="Teh Siti Rahmawati">Teh Siti Rahmawati</option>
@@ -582,12 +615,12 @@ export default function KprCalculatorPage() {
         <div className="lg:col-span-5 space-y-6">
 
           {/* Primary Result Banner */}
-          <div className="bg-gradient-to-br from-[#0A0F1D] to-[#1E293B] text-white p-6 rounded-2xl border border-slate-800 shadow-md relative overflow-hidden">
-            <div className="absolute right-0 top-0 translate-x-4 -translate-y-4 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="bg-gradient-to-br from-[#0B1120] via-[#0D1426] to-[#151F38] text-white p-6 rounded-2xl border border-amber-500/30 shadow-2xl relative overflow-hidden">
+            <div className="absolute right-0 top-0 translate-x-4 -translate-y-4 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
             
-            <div className="flex items-center justify-between text-xs text-blue-400 font-semibold mb-1">
-              <span>Estimasi Angsuran KPR</span>
-              <span className="font-mono bg-blue-500/20 px-2 py-0.5 rounded text-[10px] text-blue-300 border border-blue-500/30">
+            <div className="flex items-center justify-between text-xs text-amber-300 font-semibold mb-1">
+              <span className="font-display">Estimasi Angsuran KPR Bulanan</span>
+              <span className="font-mono bg-amber-500/20 px-2 py-0.5 rounded-full text-[10px] text-amber-300 border border-amber-500/30 font-bold">
                 Tenor {tenorYears} Thn
               </span>
             </div>
@@ -638,8 +671,8 @@ export default function KprCalculatorPage() {
           </div>
 
           {/* Tenor Comparisons Table */}
-          <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs space-y-3">
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+          <div className="bg-[#0B1120] p-5 rounded-2xl border border-amber-500/20 shadow-xl space-y-3">
+            <h4 className="text-xs font-bold text-amber-300 uppercase tracking-wider font-display">
               Perbandingan Tenor Angsuran
             </h4>
 
@@ -652,15 +685,15 @@ export default function KprCalculatorPage() {
                     onClick={() => setTenorYears(opt.years)}
                     className={`flex items-center justify-between p-2.5 rounded-xl border text-xs cursor-pointer transition ${
                       isSelected
-                        ? 'border-blue-600 bg-blue-50/50 font-bold'
-                        : 'border-slate-200 hover:bg-slate-50 text-slate-700'
+                        ? 'border-amber-400 bg-amber-500/15 font-bold text-amber-200 shadow-sm'
+                        : 'border-[#1C2640] bg-[#070B16] hover:bg-[#0D1426] text-slate-400'
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      <span className={`w-2 h-2 rounded-full ${isSelected ? 'bg-blue-600' : 'bg-slate-300'}`} />
-                      <span>{opt.years} Tahun ({opt.years * 12}x Cicilan)</span>
+                      <span className={`w-2 h-2 rounded-full ${isSelected ? 'bg-amber-400' : 'bg-slate-600'}`} />
+                      <span className={isSelected ? 'text-white' : 'text-slate-300'}>{opt.years} Tahun ({opt.years * 12}x Cicilan)</span>
                     </div>
-                    <span className="font-mono text-slate-900">
+                    <span className="font-mono text-amber-300">
                       {formatRupiah(opt.installment)} / bln
                     </span>
                   </div>
@@ -670,73 +703,73 @@ export default function KprCalculatorPage() {
           </div>
 
           {/* Breakdown Biaya Awal & Legalitas */}
-          <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-2xs space-y-3">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-              <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+          <div className="bg-[#0B1120] p-5 rounded-2xl border border-amber-500/20 shadow-xl space-y-3">
+            <div className="flex items-center justify-between border-b border-[#19243C] pb-2">
+              <h4 className="text-xs font-bold text-amber-300 uppercase tracking-wider font-display">
                 Estimasi Biaya Awal & Legalitas
               </h4>
-              <span className="text-[11px] text-slate-600 font-mono">Standar Notaris & Bank</span>
+              <span className="text-[11px] text-slate-400 font-mono">Standar Notaris & Bank</span>
             </div>
 
-            <div className="divide-y divide-slate-100 text-xs">
+            <div className="divide-y divide-[#19243C] text-xs">
               <div className="py-2 flex justify-between">
-                <span className="text-slate-600">Uang Muka (DP {dpPercentage}%)</span>
-                <span className="font-mono font-semibold text-slate-900">{formatRupiah(calculations.dpAmount)}</span>
+                <span className="text-slate-400">Uang Muka (DP {dpPercentage}%)</span>
+                <span className="font-mono font-semibold text-white">{formatRupiah(calculations.dpAmount)}</span>
               </div>
               <div className="py-2 flex justify-between">
-                <span className="text-slate-600">Pajak Pembeli (BPHTB 5%)</span>
-                <span className="font-mono font-semibold text-slate-900">
+                <span className="text-slate-400">Pajak Pembeli (BPHTB 5%)</span>
+                <span className="font-mono font-semibold text-emerald-400">
                   {calculations.bphtb === 0 ? 'Gratis / Bebas BPHTB' : formatRupiah(calculations.bphtb)}
                 </span>
               </div>
               <div className="py-2 flex justify-between">
-                <span className="text-slate-600">Akta Jual Beli (AJB) & Notaris</span>
-                <span className="font-mono font-semibold text-slate-900">{formatRupiah(calculations.ajbNotaris)}</span>
+                <span className="text-slate-400">Akta Jual Beli (AJB) & Notaris</span>
+                <span className="font-mono font-semibold text-white">{formatRupiah(calculations.ajbNotaris)}</span>
               </div>
               <div className="py-2 flex justify-between">
-                <span className="text-slate-600">Bea Balik Nama (BBN Sertifikat)</span>
-                <span className="font-mono font-semibold text-slate-900">{formatRupiah(calculations.bbn)}</span>
+                <span className="text-slate-400">Bea Balik Nama (BBN Sertifikat)</span>
+                <span className="font-mono font-semibold text-white">{formatRupiah(calculations.bbn)}</span>
               </div>
               <div className="py-2 flex justify-between">
-                <span className="text-slate-600">Provisi & Administrasi Bank (1%)</span>
-                <span className="font-mono font-semibold text-slate-900">{formatRupiah(calculations.provisiBank + calculations.administrasiBank)}</span>
+                <span className="text-slate-400">Provisi & Administrasi Bank (1%)</span>
+                <span className="font-mono font-semibold text-white">{formatRupiah(calculations.provisiBank + calculations.administrasiBank)}</span>
               </div>
               <div className="py-2 flex justify-between">
-                <span className="text-slate-600">Asuransi Jiwa & Kebakaran Bank</span>
-                <span className="font-mono font-semibold text-slate-900">{formatRupiah(calculations.asuransi)}</span>
+                <span className="text-slate-400">Asuransi Jiwa & Kebakaran Bank</span>
+                <span className="font-mono font-semibold text-white">{formatRupiah(calculations.asuransi)}</span>
               </div>
-              <div className="py-2.5 flex justify-between font-bold bg-slate-50 px-2 rounded-lg mt-1">
-                <span className="text-slate-900">Total Estimasi Dana Awal Siap Huni</span>
-                <span className="font-mono text-blue-700">{formatRupiah(calculations.totalDanaAwal)}</span>
+              <div className="py-2.5 flex justify-between font-bold bg-[#070B16] px-2.5 rounded-xl border border-[#19243C] mt-1.5">
+                <span className="text-white font-display">Total Estimasi Dana Awal</span>
+                <span className="font-mono text-amber-300">{formatRupiah(calculations.totalDanaAwal)}</span>
               </div>
             </div>
           </div>
 
           {/* Quick WhatsApp Action Box */}
-          <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-200/90 shadow-2xs space-y-3">
+          <div className="p-5 bg-[#0B1120] rounded-2xl border border-emerald-500/30 shadow-xl space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-emerald-950 flex items-center gap-1.5">
-                <MessageCircle className="w-4 h-4 text-emerald-600" />
+              <span className="text-xs font-bold text-emerald-300 flex items-center gap-1.5 font-display">
+                <MessageCircle className="w-4 h-4 text-emerald-400" />
                 Format WhatsApp Siap Kirim
               </span>
               <button
                 onClick={handleCopy}
-                className="px-2.5 py-1 bg-white hover:bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-lg border border-emerald-200 transition flex items-center gap-1 shadow-2xs"
+                className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700 transition flex items-center gap-1"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-emerald-600" />}
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-slate-400" />}
                 <span>{copied ? 'Tersalin' : 'Salin Teks'}</span>
               </button>
             </div>
 
-            <p className="text-[11px] text-emerald-800 line-clamp-3 bg-white/70 p-2.5 rounded-xl border border-emerald-200/60 font-mono">
+            <p className="text-[11px] text-slate-300 line-clamp-3 bg-[#070B16] p-3 rounded-xl border border-[#19243C] font-mono leading-relaxed">
               {generatedWhatsAppText}
             </p>
 
             <button
               onClick={handleOpenWhatsApp}
-              className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-2 shadow-xs"
+              className="w-full py-2.5 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 text-xs font-bold rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 hover:brightness-110"
             >
-              <MessageCircle className="w-4 h-4 text-white" />
+              <MessageCircle className="w-4 h-4" />
               <span>Kirim Rincian Simulasi ke {buyerName}</span>
             </button>
           </div>
@@ -746,37 +779,37 @@ export default function KprCalculatorPage() {
       </div>
 
       {/* Full-Width Section: Jadwal Amortisasi Kredit Penurunan Pokok */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs overflow-hidden">
+      <div className="bg-[#0B1120] rounded-2xl border border-amber-500/20 shadow-xl overflow-hidden">
         
         {/* Accordion Header */}
         <div 
           onClick={() => setShowAmortization(prev => !prev)}
-          className="p-5 flex items-center justify-between cursor-pointer hover:bg-slate-50 transition select-none"
+          className="p-5 flex items-center justify-between cursor-pointer hover:bg-[#0D1426] transition select-none"
         >
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
+            <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
               <Table className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-bold text-sm text-slate-900">
+                <h3 className="font-bold text-sm text-white font-display">
                   Tabel Jadwal Amortisasi Pinjaman (Tenor {tenorYears} Tahun)
                 </h3>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 font-mono">
                   Rincian Pokok vs Bunga
                 </span>
               </div>
-              <p className="text-xs text-slate-500 mt-0.5">
-                Plafon KPR: <strong className="font-mono text-slate-700">{formatRupiah(calculations.loanAmount)}</strong> • Bunga: <strong className="font-mono text-slate-700">{interestRate}% Flat/Anuitas</strong> • Angsuran: <strong className="font-mono text-slate-700">{formatRupiah(calculations.monthlyInstallment)}/bln</strong>
+              <p className="text-xs text-slate-400 mt-0.5 font-mono">
+                Plafon KPR: <strong className="text-amber-300">{formatRupiah(calculations.loanAmount)}</strong> &bull; Bunga: <strong className="text-amber-300">{interestRate}%</strong> &bull; Angsuran: <strong className="text-amber-300">{formatRupiah(calculations.monthlyInstallment)}/bln</strong>
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-blue-600 hidden sm:inline">
+            <span className="text-xs font-semibold text-amber-400 hidden sm:inline">
               {showAmortization ? 'Sembunyikan Tabel' : 'Buka Rincian Amortisasi'}
             </span>
-            <div className="p-1.5 rounded-lg bg-slate-100 text-slate-500">
+            <div className="p-1.5 rounded-lg bg-[#070B16] text-amber-300 border border-[#1C2640]">
               {showAmortization ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
             </div>
           </div>

@@ -8,12 +8,13 @@ import {
   ArrowRight, 
   ShieldCheck, 
   Sparkles, 
-  CheckCircle2, 
   Eye, 
   EyeOff, 
-  UserCheck,
-  Building,
-  KeyRound
+  KeyRound,
+  FileSignature,
+  CreditCard,
+  Compass,
+  CheckCircle2
 } from 'lucide-react';
 import { useToast } from '@/components/ui/Toast';
 
@@ -62,129 +63,142 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-[#F8FAFC]">
+    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-[#060913] text-slate-100 selection:bg-gold-500/30 selection:text-gold-200">
       
-      {/* Left Branding Showcase (Desktop) */}
+      {/* Left Architectural Cinematic Showcase */}
       <div 
-        className="hidden lg:flex lg:w-1/2 text-white p-12 flex-col justify-between relative overflow-hidden border-r border-[#1E293B]"
+        className="hidden lg:flex lg:w-7/12 p-12 lg:p-16 flex-col justify-between relative overflow-hidden border-r border-gold-500/15"
         style={{ 
-          backgroundImage: 'linear-gradient(to bottom, rgba(8, 12, 26, 0.90), rgba(8, 12, 26, 0.98)), url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80")', 
+          backgroundImage: 'radial-gradient(ellipse at 80% 20%, rgba(212,175,55,0.08) 0%, transparent 60%), linear-gradient(to bottom, rgba(6,9,19,0.85) 0%, rgba(6,9,19,0.96) 100%), url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85")', 
           backgroundSize: 'cover', 
           backgroundPosition: 'center' 
         }}
       >
-        {/* Subtle Ambient Glows */}
-        <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        {/* Ambient Luxury Glow Orbs */}
+        <div className="absolute top-0 right-0 -mt-24 -mr-24 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 -mb-24 -ml-24 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
         {/* Top Header */}
         <div className="relative z-10">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/25">
-              <Building2 className="w-5 h-5 text-white" />
+          <div className="flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-gold-400 via-gold-500 to-gold-700 flex items-center justify-center font-bold text-obsidian-950 shadow-lg shadow-gold-500/25 border border-gold-300/40">
+              <Building2 className="w-6 h-6 text-obsidian-950" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-xl tracking-tight text-white leading-none">HOMIQ</span>
-                <span className="text-[10px] font-bold font-mono px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">PRO CRM</span>
+                <span className="font-extrabold text-2xl tracking-wider text-white font-cinzel">HOMIQ</span>
+                <span className="text-[10px] font-bold font-mono px-2 py-0.5 rounded-full bg-gold-500/15 text-gold-300 border border-gold-500/30">
+                  ULTRA-LUXURY
+                </span>
               </div>
-              <p className="text-xs text-slate-400 font-medium mt-0.5">Smart Property Operating System</p>
+              <p className="text-xs text-gold-200/60 font-medium tracking-wide">Architectural PropTech Operating System</p>
             </div>
           </div>
         </div>
 
         {/* Center Content & Value Props */}
-        <div className="relative z-10 space-y-8 my-auto py-8">
-          <div className="space-y-3">
-            <span className="text-[11px] font-bold font-mono uppercase tracking-wider text-blue-400 bg-blue-900/50 px-3 py-1 rounded-full border border-blue-700/50 inline-flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
-              Platform CRM B2B Multi-Tenant
-            </span>
-            <h1 className="text-3xl xl:text-4xl font-extrabold text-white tracking-tight leading-snug">
-              Tingkatkan Closing Penjualan Properti Tanpa Risiko Double-Booking.
+        <div className="relative z-10 space-y-7 my-auto py-10 max-w-xl">
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/25 text-gold-300 text-xs font-mono font-medium">
+              <span className="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
+              Enterprise PropTech Platform &bull; PT Garut Sejahtera Propertindo
+            </div>
+            <h1 className="text-3xl xl:text-5xl font-serif text-white tracking-tight leading-[1.18]">
+              Harmoni Kemewahan Arsitektur &amp; Ketepatan Digital Closing.
             </h1>
-            <p className="text-sm text-slate-300 leading-relaxed max-w-lg">
-              Solusi CRM terintegrasi khusus developer perumahan dan agensi properti. Dilengkapi fungsi transaksional row-locking database PostgreSQL anti benturan kavling, pipeline sales interaktif, dan otomasi WhatsApp.
+            <p className="text-sm text-slate-300 leading-relaxed font-light">
+              Standar baru ekosistem CRM real estate kelas atas. Mengintegrasikan Virtual Tour 360°, pembayaran instan QRIS Booking Fee, E-Signature SPK Digital berkekuatan hukum, serta orkestrasi WhatsApp drip campaign terpadu.
             </p>
           </div>
 
-          {/* 3 Pillars Badge */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="p-3.5 rounded-xl bg-[#0F172A] border border-[#1E293B] space-y-1">
-              <p className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                Row-Locking
-              </p>
-              <p className="text-[11px] text-slate-400">Garansi 0% double-booking unit kavling</p>
+          {/* 4 PropTech Architectural Badges */}
+          <div className="grid grid-cols-2 gap-3 pt-2">
+            <div className="p-3.5 rounded-xl bg-obsidian-900/80 border border-gold-500/20 backdrop-blur-md space-y-1">
+              <div className="flex items-center gap-2 text-gold-400 text-xs font-bold">
+                <Compass className="w-4 h-4 text-gold-400" />
+                <span>360° Walkthrough VR</span>
+              </div>
+              <p className="text-[11px] text-slate-400">Tur interaktif panorama imersif 4 sudut ruang</p>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-[#0F172A] border border-[#1E293B] space-y-1">
-              <p className="text-xs font-bold text-blue-400 flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-blue-400" />
-                Click-to-WA
-              </p>
-              <p className="text-[11px] text-slate-400">Format internasional 628... dan template pesan</p>
+            <div className="p-3.5 rounded-xl bg-obsidian-900/80 border border-gold-500/20 backdrop-blur-md space-y-1">
+              <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold">
+                <CreditCard className="w-4 h-4 text-emerald-400" />
+                <span>Instant QRIS Gateway</span>
+              </div>
+              <p className="text-[11px] text-slate-400">Kunci kavling detik itu juga via dynamic QRIS / VA</p>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-[#0F172A] border border-[#1E293B] space-y-1">
-              <p className="text-xs font-bold text-amber-400 flex items-center gap-1.5">
-                <Building className="w-4 h-4 text-amber-400" />
-                Multi-Tenant
-              </p>
-              <p className="text-[11px] text-slate-400">Isolasi data database level PostgreSQL RLS</p>
+            <div className="p-3.5 rounded-xl bg-obsidian-900/80 border border-gold-500/20 backdrop-blur-md space-y-1">
+              <div className="flex items-center gap-2 text-blue-400 text-xs font-bold">
+                <FileSignature className="w-4 h-4 text-blue-400" />
+                <span>Digital SPK &amp; E-Sign</span>
+              </div>
+              <p className="text-[11px] text-slate-400">Tanda tangan canvas &amp; cetak kontrak resmi A4</p>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-obsidian-900/80 border border-gold-500/20 backdrop-blur-md space-y-1">
+              <div className="flex items-center gap-2 text-gold-300 text-xs font-bold">
+                <ShieldCheck className="w-4 h-4 text-gold-300" />
+                <span>Zero Double-Booking</span>
+              </div>
+              <p className="text-[11px] text-slate-400">Transaksional row-locking database PostgreSQL</p>
             </div>
           </div>
         </div>
 
         {/* Bottom Testimonial */}
-        <div className="relative z-10 pt-6 border-t border-[#1E293B] text-xs text-slate-400 space-y-1">
-          <p className="italic text-slate-300">
-            &quot;HOMIQ mempermudah tim sales kami mengunci 12 unit dalam 1 minggu tanpa ada satupun unit ter-booking ganda.&quot;
+        <div className="relative z-10 pt-6 border-t border-gold-500/15 text-xs space-y-1.5">
+          <p className="italic text-slate-300 font-serif text-sm">
+            &quot;HOMIQ mengubah total cara kami mempresentasikan portofolio properti premium kepada buyer &amp; perbankan, meningkatkan konversi transaksi secara signifikan.&quot;
           </p>
-          <p className="font-semibold text-slate-400 text-[11px]">
-            &mdash; MUHAMMAD RIZAL, Direktur Utama Garut Sejahtera Property
-          </p>
+          <div className="flex items-center justify-between text-slate-400 text-[11px]">
+            <p className="font-semibold text-gold-300">
+              MUHAMMAD RIZAL &bull; Direktur Utama Garut Sejahtera Property
+            </p>
+            <span className="text-slate-500 font-mono">Grand City &bull; Pesona Regency &bull; Emerald</span>
+          </div>
         </div>
 
       </div>
 
       {/* Right Login Form Deck */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10 lg:p-16">
-        <div className="w-full max-w-md space-y-6">
+      <div className="w-full lg:w-5/12 flex items-center justify-center p-6 sm:p-10 lg:p-12 relative">
+        <div className="w-full max-w-md space-y-6 relative z-10">
           
           {/* Mobile Logo View */}
           <div className="flex items-center gap-3 lg:hidden pb-2">
-            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-white shadow-md">
-              <Building2 className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center font-bold text-obsidian-950 shadow-md">
+              <Building2 className="w-5 h-5" />
             </div>
             <div>
-              <span className="font-extrabold text-lg text-slate-900 leading-none">HOMIQ</span>
-              <p className="text-xs text-slate-500 font-medium">Smart Property CRM</p>
+              <span className="font-extrabold text-xl text-white font-cinzel">HOMIQ</span>
+              <p className="text-xs text-gold-300 font-medium">Ultra-Luxury PropTech CRM</p>
             </div>
           </div>
 
           {/* Form Header */}
           <div className="space-y-1.5">
-            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Masuk ke Workspace CRM</h2>
-            <p className="text-xs text-slate-500">
-              Silakan masukkan kredensial akun developer perumahan Anda
+            <h2 className="text-2xl font-serif text-white tracking-tight">Masuk ke Portal CRM</h2>
+            <p className="text-xs text-slate-400">
+              Akses konsol manajemen properti eksklusif developer Anda
             </p>
           </div>
 
-          {/* Standard Login Form */}
+          {/* Luxury Form */}
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
                 Alamat Email Bisnis
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                <Mail className="w-4 h-4 text-gold-400/60 absolute left-3.5 top-3" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="nama@developer.co.id"
-                  className="w-full pl-9 pr-3 py-2.5 text-xs bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition font-medium"
+                  className="w-full pl-10 pr-3 py-2.5 text-xs bg-obsidian-900/90 text-white border border-gold-500/25 rounded-xl focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400/50 transition font-medium placeholder:text-slate-600"
                   required
                 />
               </div>
@@ -192,27 +206,27 @@ export default function LoginPage() {
 
             <div>
               <div className="flex justify-between items-center mb-1.5">
-                <label className="block text-xs font-semibold text-slate-700">
+                <label className="block text-xs font-medium text-slate-300">
                   Kata Sandi (Password)
                 </label>
-                <a href="#" onClick={(e) => { e.preventDefault(); showToast('Tautan reset password telah dikirim ke email', 'info'); }} className="text-[11px] text-blue-600 font-medium hover:underline">
+                <a href="#" onClick={(e) => { e.preventDefault(); showToast('Tautan verifikasi aman dikirim ke email terdaftar.', 'info'); }} className="text-[11px] text-gold-400 hover:text-gold-300 transition">
                   Lupa password?
                 </a>
               </div>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                <Lock className="w-4 h-4 text-gold-400/60 absolute left-3.5 top-3" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Minimal 8 karakter"
-                  className="w-full pl-9 pr-10 py-2.5 text-xs bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition font-mono"
+                  className="w-full pl-10 pr-10 py-2.5 text-xs bg-obsidian-900/90 text-white border border-gold-500/25 rounded-xl focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400/50 transition font-mono placeholder:text-slate-600"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600"
+                  className="absolute right-3 top-2.5 text-slate-400 hover:text-gold-300"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -220,8 +234,8 @@ export default function LoginPage() {
             </div>
 
             <div className="flex items-center justify-between text-xs pt-1">
-              <label className="flex items-center gap-2 cursor-pointer text-slate-600">
-                <input type="checkbox" defaultChecked className="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+              <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+                <input type="checkbox" defaultChecked className="rounded border-gold-500/30 text-gold-500 focus:ring-gold-400 bg-obsidian-900" />
                 <span>Ingat saya di perangkat ini</span>
               </label>
             </div>
@@ -229,125 +243,108 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition shadow-sm hover:shadow-md flex items-center justify-center gap-2"
+              className="w-full py-2.5 bg-gradient-to-r from-gold-500 via-gold-400 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-obsidian-950 rounded-xl text-xs font-bold transition shadow-lg shadow-gold-500/20 flex items-center justify-center gap-2"
             >
               {isLoading ? (
-                <span>Memproses Verifikasi...</span>
+                <span>Memverifikasi Akses Enkripsi...</span>
               ) : (
                 <>
-                  <span>Masuk ke Dashboard</span>
+                  <span>Buka Workspace Eksekutif</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
             </button>
           </form>
 
-          {/* Quick Demo Switcher Section (Fitur Kunci Presentasi) */}
-          <div className="pt-5 border-t border-slate-200 space-y-3">
+          {/* Quick Demo Switcher Section */}
+          <div className="pt-5 border-t border-gold-500/15 space-y-3">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-slate-700 flex items-center gap-1.5">
-                <KeyRound className="w-3.5 h-3.5 text-amber-600" />
-                <span>Pilih Akun Demo (1-Klik Masuk)</span>
+              <span className="font-bold text-slate-200 flex items-center gap-1.5 font-cinzel tracking-wider">
+                <KeyRound className="w-3.5 h-3.5 text-gold-400" />
+                <span>Akses Demo 1-Klik</span>
               </span>
-              <span className="text-[10px] font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded font-bold border border-emerald-200">
-                Instant Access
+              <span className="text-[10px] font-mono text-gold-300 bg-gold-500/10 px-2 py-0.5 rounded font-bold border border-gold-500/30">
+                Live Simulation
               </span>
             </div>
 
-            <p className="text-[11px] text-slate-500 leading-relaxed">
-              Untuk kebutuhan presentasi & pengujian, Anda dapat masuk langsung tanpa input password dengan memilih peran di bawah:
+            <p className="text-[11px] text-slate-400 leading-relaxed">
+              Pilih peran di bawah untuk menguji alur kerja eksekutif tanpa pengisian kredensial manual:
             </p>
 
             <div className="space-y-2">
               <button
                 type="button"
                 onClick={() => handleQuickDemoLogin('owner')}
-                className="w-full p-2.5 bg-white hover:bg-slate-50 text-slate-800 rounded-xl text-xs font-semibold border border-slate-200 flex items-center justify-between transition shadow-2xs hover:border-blue-400 group"
+                className="w-full p-2.5 bg-obsidian-900/90 hover:bg-gold-500/10 text-slate-200 rounded-xl text-xs font-semibold border border-gold-500/30 flex items-center justify-between transition group hover:border-gold-400"
               >
                 <div className="flex items-center gap-2.5">
-                  <span className="w-7 h-7 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-xs shrink-0">
+                  <span className="w-7 h-7 rounded-lg bg-gold-500/20 text-gold-300 border border-gold-500/40 flex items-center justify-center font-bold text-xs shrink-0">
                     👔
                   </span>
                   <div className="text-left">
-                    <p className="font-bold text-slate-900 group-hover:text-blue-600 transition">Direktur Utama & Owner</p>
-                    <p className="text-[10px] text-slate-500">Pak MUHAMMAD RIZAL (Garut Sejahtera)</p>
+                    <p className="font-bold text-white group-hover:text-gold-300 transition">Direktur Utama &amp; Owner</p>
+                    <p className="text-[10px] text-slate-400">MUHAMMAD RIZAL &bull; Garut Sejahtera Propertindo</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono text-blue-600 font-bold">Buka Dashboard →</span>
+                <span className="text-[10px] font-mono text-gold-400 font-bold group-hover:translate-x-0.5 transition">Masuk →</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleQuickDemoLogin('marketing')}
-                className="w-full p-2.5 bg-white hover:bg-slate-50 text-slate-800 rounded-xl text-xs font-semibold border border-slate-200 flex items-center justify-between transition shadow-2xs hover:border-emerald-400 group"
+                className="w-full p-2.5 bg-obsidian-900/90 hover:bg-emerald-500/10 text-slate-200 rounded-xl text-xs font-semibold border border-slate-800 flex items-center justify-between transition group hover:border-emerald-500/40"
               >
                 <div className="flex items-center gap-2.5">
-                  <span className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-xs shrink-0">
+                  <span className="w-7 h-7 rounded-lg bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-bold text-xs shrink-0">
                     💼
                   </span>
                   <div className="text-left">
-                    <p className="font-bold text-slate-900 group-hover:text-emerald-600 transition">Konsultan Marketing</p>
-                    <p className="text-[10px] text-slate-500">Kang Dika Pratama (Sales Lead Engine)</p>
+                    <p className="font-bold text-white group-hover:text-emerald-400 transition">Konsultan Marketing</p>
+                    <p className="text-[10px] text-slate-400">Kang Dika Pratama (5 Leads WA Engine)</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono text-emerald-600 font-bold">Buka Follow-up →</span>
+                <span className="text-[10px] font-mono text-emerald-400 font-bold group-hover:translate-x-0.5 transition">Masuk →</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleQuickDemoLogin('finance')}
-                className="w-full p-2.5 bg-white hover:bg-slate-50 text-slate-800 rounded-xl text-xs font-semibold border border-slate-200 flex items-center justify-between transition shadow-2xs hover:border-amber-400 group"
+                className="w-full p-2.5 bg-obsidian-900/90 hover:bg-blue-500/10 text-slate-200 rounded-xl text-xs font-semibold border border-slate-800 flex items-center justify-between transition group hover:border-blue-500/40"
               >
                 <div className="flex items-center gap-2.5">
-                  <span className="w-7 h-7 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center font-bold text-xs shrink-0">
+                  <span className="w-7 h-7 rounded-lg bg-blue-500/15 text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-xs shrink-0">
                     💳
                   </span>
                   <div className="text-left">
-                    <p className="font-bold text-slate-900 group-hover:text-amber-600 transition">Admin Keuangan &amp; KPR</p>
-                    <p className="text-[10px] text-slate-500">Ibu Siti Rahma (Kontrol Angsuran DP &amp; Kwitansi)</p>
+                    <p className="font-bold text-white group-hover:text-blue-400 transition">Admin Keuangan &amp; KPR</p>
+                    <p className="text-[10px] text-slate-400">Ibu Siti Rahma (Escrow BTN &amp; Booking QRIS)</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono text-amber-600 font-bold">Buka Keuangan →</span>
+                <span className="text-[10px] font-mono text-blue-400 font-bold group-hover:translate-x-0.5 transition">Masuk →</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleQuickDemoLogin('construction')}
-                className="w-full p-2.5 bg-white hover:bg-slate-50 text-slate-800 rounded-xl text-xs font-semibold border border-slate-200 flex items-center justify-between transition shadow-2xs hover:border-violet-400 group"
+                className="w-full p-2.5 bg-obsidian-900/90 hover:bg-amber-500/10 text-slate-200 rounded-xl text-xs font-semibold border border-slate-800 flex items-center justify-between transition group hover:border-amber-500/40"
               >
                 <div className="flex items-center gap-2.5">
-                  <span className="w-7 h-7 rounded-lg bg-violet-50 text-violet-700 flex items-center justify-center font-bold text-xs shrink-0">
+                  <span className="w-7 h-7 rounded-lg bg-amber-500/15 text-amber-400 border border-amber-500/30 flex items-center justify-center font-bold text-xs shrink-0">
                     🏗️
                   </span>
                   <div className="text-left">
-                    <p className="font-bold text-slate-900 group-hover:text-violet-600 transition">Site Manager &amp; Teknik Sipil</p>
-                    <p className="text-[10px] text-slate-500">Ir. Hendra Wijaya (Progres Fisik &amp; BAPF BTN)</p>
+                    <p className="font-bold text-white group-hover:text-amber-400 transition">Site Manager &amp; Konstruksi</p>
+                    <p className="text-[10px] text-slate-400">Ir. Hendra Wijaya (Progres Fisik Kavling)</p>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono text-violet-600 font-bold">Buka Konstruksi →</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleQuickDemoLogin('superadmin')}
-                className="w-full p-2.5 bg-white hover:bg-slate-50 text-slate-800 rounded-xl text-xs font-semibold border border-slate-200 flex items-center justify-between transition shadow-2xs hover:border-purple-400 group"
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="w-7 h-7 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center font-bold text-xs shrink-0">
-                    🛡️
-                  </span>
-                  <div className="text-left">
-                    <p className="font-bold text-slate-900 group-hover:text-purple-600 transition">Platform Super Admin</p>
-                    <p className="text-[10px] text-slate-500">Master Console (Kelola Kuota Multi-Tenant)</p>
-                  </div>
-                </div>
-                <span className="text-[10px] font-mono text-purple-600 font-bold">Buka Console →</span>
+                <span className="text-[10px] font-mono text-amber-400 font-bold group-hover:translate-x-0.5 transition">Masuk →</span>
               </button>
             </div>
           </div>
 
-          <div className="text-center pt-2 text-[11px] text-slate-400">
-            HOMIQ Smart Property CRM &bull; Versi 1.2 Enterprise Edition
+          <div className="text-center pt-2 text-[11px] text-slate-500 font-mono">
+            HOMIQ PropTech Edition &bull; PT Garut Sejahtera Propertindo
           </div>
 
         </div>

@@ -45,6 +45,8 @@ const PAGE_TITLES: Record<string, { title: string; subtitle: string; category: s
   '/kpr-calculator': { title: 'Kalkulator KPR & Simulasi Finansial', subtitle: 'Simulasi KPR Subsidi FLPP & Komersial dengan rincian instan WhatsApp', category: 'Finance' },
   '/whatsapp-center': { title: 'WhatsApp Marketing Center', subtitle: 'Click-to-WA engine & generator pesan percakapan calon pembeli terstandarisasi', category: 'Marketing' },
   '/documents': { title: 'Pusat Dokumen & Kontrak Legalitas', subtitle: 'Generator SPK, PPJB, BAST Kunci, dan Surat Pernyataan Subsidi KemenPUPR', category: 'Legal & Contracts' },
+  '/spk-digital': { title: 'E-Signature & Digital SPK Legal', subtitle: 'Penandatanganan digital langsung & penerbitan SPK resmi PT Garut Sejahtera Propertindo', category: 'Legal & Sales' },
+  '/dossier': { title: 'Dossier Eksekutif & Majalah Investor', subtitle: 'Laporan perkembangan proyek & serapan investasi format majalah arsitektur A4', category: 'Executive & Board' },
   '/portal-kpr': { title: 'Portal Mandiri Konsumen', subtitle: 'Akses pengecekan progres fisik rumah & unggah berkas KPR Bank BTN', category: 'Customer Portal' },
   '/settings': { title: 'Pengaturan Profil Pengembang', subtitle: 'Konfigurasi identitas developer, rekening escrow, biaya default, & hak akses staf', category: 'Settings' },
   '/super-admin': { title: 'Platform Super Admin', subtitle: 'Pengaturan multi-tenant & Row Level Security (RLS)', category: 'System' },
@@ -123,14 +125,14 @@ export default function Header() {
     : [];
 
   return (
-    <header className="h-16 bg-white/95 backdrop-blur-md border-b border-slate-200/90 flex items-center justify-between px-4 sm:px-6 lg:px-8 sticky top-0 z-30 shrink-0 shadow-2xs print:hidden">
+    <header className="h-16 bg-[#070B16]/90 backdrop-blur-xl border-b border-[#19243C] flex items-center justify-between px-4 sm:px-6 lg:px-8 sticky top-0 z-30 shrink-0 shadow-2xl print:hidden">
       
       {/* Left: Hamburger & Dynamic Breadcrumb */}
       <div className="flex items-center gap-3 min-w-0">
         <button
           onClick={toggle}
           aria-label="Toggle Navigation Menu"
-          className="p-2 -ml-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 md:hidden focus:outline-none transition"
+          className="p-2 -ml-2 rounded-lg text-slate-400 hover:text-amber-300 hover:bg-[#0D1426] md:hidden focus:outline-none transition"
         >
           <Menu className="w-5 h-5" />
         </button>
@@ -138,15 +140,15 @@ export default function Header() {
         <div className="flex flex-col min-w-0">
           {/* Breadcrumb */}
           <div className="flex items-center gap-1.5 text-[11px] text-slate-400 font-medium">
-            <Link href="/" className="hover:text-blue-600 transition">HOMIQ</Link>
-            <ChevronRight className="w-3 h-3 text-slate-300" />
-            <span className="text-slate-500 font-medium">{currentPage.category}</span>
-            <ChevronRight className="w-3 h-3 text-slate-300 hidden sm:inline" />
-            <span className="text-slate-800 font-semibold truncate hidden sm:inline">{currentPage.title}</span>
+            <Link href="/" className="hover:text-amber-300 transition">HOMIQ</Link>
+            <ChevronRight className="w-3 h-3 text-slate-500" />
+            <span className="text-amber-400/80 font-medium">{currentPage.category}</span>
+            <ChevronRight className="w-3 h-3 text-slate-500 hidden sm:inline" />
+            <span className="text-slate-300 font-semibold truncate hidden sm:inline">{currentPage.title}</span>
           </div>
           
           {/* Page Title */}
-          <h1 className="text-sm font-bold text-slate-900 tracking-tight leading-tight truncate">
+          <h1 className="text-sm font-bold text-white font-display tracking-tight leading-tight truncate">
             {currentPage.title}
           </h1>
         </div>
@@ -159,12 +161,12 @@ export default function Header() {
         <div className="relative hidden md:block w-56 lg:w-72">
           <button
             onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
-            className="w-full flex items-center justify-between pl-8 pr-2.5 py-1.5 bg-slate-50 hover:bg-slate-100/90 text-xs rounded-lg border border-slate-200 text-slate-400 hover:text-slate-600 transition shadow-2xs group text-left"
+            className="w-full flex items-center justify-between pl-8 pr-2.5 py-1.5 bg-[#0D1426] hover:bg-[#131C35] text-xs rounded-xl border border-[#1C2640] hover:border-amber-500/30 text-slate-400 hover:text-slate-200 transition shadow-inner group text-left"
             title="Buka Command Palette (Ctrl + K)"
           >
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5 group-hover:text-blue-600 transition-colors" />
-            <span className="truncate text-slate-500">Cari prospek, kavling...</span>
-            <kbd className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-bold text-slate-400 group-hover:text-slate-600 bg-white border border-slate-200 rounded shadow-2xs">
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5 group-hover:text-amber-400 transition-colors" />
+            <span className="truncate text-slate-400">Cari prospek, kavling...</span>
+            <kbd className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-bold text-amber-300/80 group-hover:text-amber-300 bg-[#070B16] border border-[#1C2640] rounded shadow-2xs">
               Ctrl K
             </kbd>
           </button>
@@ -173,31 +175,31 @@ export default function Header() {
         {/* Quick System Guide Pill Button */}
         <button
           onClick={() => setShowSystemGuide(true)}
-          className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 border border-slate-200 transition shadow-2xs"
+          className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-bold text-amber-200 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 transition shadow-sm"
           title="Panduan Alur Kerja Sistem Properti"
         >
-          <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
           <span className="hidden lg:inline">Alur Kerja Sistem</span>
         </button>
 
         {/* Keyboard Shortcuts Trigger */}
         <button
           onClick={() => setShowShortcutsModal(true)}
-          className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition shadow-2xs"
+          className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#0D1426] border border-[#1C2640] transition"
           title="Pintasan Keyboard (Tekan ?)"
         >
-          <Keyboard className="w-3.5 h-3.5 text-slate-500" />
+          <Keyboard className="w-3.5 h-3.5 text-slate-400" />
           <span className="hidden xl:inline">Pintasan</span>
-          <kbd className="text-[10px] font-mono font-bold bg-white px-1 py-0.2 rounded border border-slate-200 text-slate-500">?</kbd>
+          <kbd className="text-[10px] font-mono font-bold bg-[#070B16] px-1 py-0.2 rounded border border-[#1C2640] text-amber-300">?</kbd>
         </button>
 
         {/* UI Sound Mute/Unmute Toggle */}
         <button
           onClick={handleToggleSound}
-          className={`p-2 rounded-xl border transition shadow-2xs ${
+          className={`p-2 rounded-xl border transition ${
             isMuted 
-              ? 'text-slate-400 bg-slate-100 border-slate-200 hover:text-slate-700' 
-              : 'text-blue-600 bg-blue-50/70 border-blue-200 hover:bg-blue-100'
+              ? 'text-slate-400 bg-[#0D1426] border-[#1C2640] hover:text-slate-200' 
+              : 'text-amber-300 bg-amber-500/10 border-amber-500/30 hover:bg-amber-500/20'
           }`}
           title={isMuted ? 'Efek Suara UI: Mati (Klik untuk Mengaktifkan)' : 'Efek Suara UI: Aktif (Klik untuk Mute)'}
           aria-label="Toggle Sound Effects"
@@ -205,7 +207,7 @@ export default function Header() {
           {isMuted ? (
             <VolumeX className="w-4 h-4 text-slate-400" />
           ) : (
-            <Volume2 className="w-4 h-4 text-blue-600" />
+            <Volume2 className="w-4 h-4 text-amber-300" />
           )}
         </button>
 
@@ -214,7 +216,7 @@ export default function Header() {
           <button
             onClick={() => setShowNotifications(!showNotifications)}
             aria-label="Notifikasi"
-            className="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition relative"
+            className="p-2 text-slate-400 hover:text-white hover:bg-[#0D1426] rounded-xl border border-transparent hover:border-[#1C2640] transition relative"
           >
             <Bell className="w-4 h-4" />
             {unreadCount > 0 && (
@@ -261,14 +263,14 @@ export default function Header() {
         <div className="relative">
           <button
             onClick={() => setShowProfileMenu(!showProfileMenu)}
-            className="flex items-center gap-2 pl-2 border-l border-slate-200 text-left hover:opacity-80 transition focus:outline-none"
+            className="flex items-center gap-2.5 pl-2.5 border-l border-[#19243C] text-left hover:opacity-90 transition focus:outline-none"
           >
-            <div className="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center border border-slate-700 shadow-2xs">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-600 text-slate-950 font-black text-xs flex items-center justify-center border border-amber-300 shadow-md shadow-amber-500/20">
               MR
             </div>
             <div className="hidden lg:block text-left text-xs leading-none">
-              <p className="font-bold text-slate-900">MUHAMMAD RIZAL</p>
-              <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Direktur Utama &bull; Garut Sejahtera</p>
+              <p className="font-bold text-white font-display">MUHAMMAD RIZAL</p>
+              <p className="text-[10px] text-amber-400/90 mt-0.5 font-medium font-mono">Direktur Utama &bull; Garut Sejahtera</p>
             </div>
           </button>
 
@@ -278,27 +280,34 @@ export default function Header() {
                 className="fixed inset-0 z-40" 
                 onClick={() => setShowProfileMenu(false)} 
               />
-              <div className="absolute right-0 top-11 w-56 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-50 text-xs animate-in fade-in duration-100">
-                <div className="px-3.5 py-2 border-b border-slate-100">
-                  <p className="font-bold text-slate-900">MUHAMMAD RIZAL</p>
-                  <p className="text-[11px] text-slate-500">rizal@garutsejahtera.co.id</p>
-                  <span className="inline-block mt-1 text-[10px] font-mono bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded-full font-bold border border-emerald-200">
-                    Direktur Utama &bull; Executive
+              <div className="absolute right-0 top-11 w-64 bg-[#0B1120] rounded-2xl shadow-2xl border border-amber-500/20 py-2 z-50 text-xs backdrop-blur-xl animate-in fade-in duration-100">
+                <div className="px-4 py-2.5 border-b border-[#19243C]">
+                  <p className="font-bold text-white font-display">MUHAMMAD RIZAL</p>
+                  <p className="text-[11px] text-slate-400 font-mono">rizal@garutsejahtera.co.id</p>
+                  <span className="inline-block mt-1.5 text-[10px] font-mono bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full font-bold border border-amber-500/30">
+                    Direktur Utama &bull; Executive Board
                   </span>
                 </div>
 
-                <div className="py-1">
+                <div className="py-1.5">
+                  <Link
+                    href="/dossier"
+                    onClick={() => setShowProfileMenu(false)}
+                    className="block px-4 py-2 hover:bg-[#131C35] text-amber-200 font-medium transition"
+                  >
+                    Dossier Eksekutif & Majalah A4
+                  </Link>
                   <Link
                     href="/settings"
                     onClick={() => setShowProfileMenu(false)}
-                    className="block px-3.5 py-1.5 hover:bg-slate-50 text-slate-700 font-medium transition"
+                    className="block px-4 py-2 hover:bg-[#131C35] text-slate-300 hover:text-white font-medium transition"
                   >
                     Pengaturan Profil Developer
                   </Link>
                   <Link
                     href="/super-admin"
                     onClick={() => setShowProfileMenu(false)}
-                    className="block px-3.5 py-1.5 hover:bg-slate-50 text-slate-700 font-medium transition"
+                    className="block px-4 py-2 hover:bg-[#131C35] text-slate-300 hover:text-white font-medium transition"
                   >
                     Konsol Super Admin
                   </Link>
@@ -308,20 +317,20 @@ export default function Header() {
                       setShowProfileMenu(false);
                       showToast('Beralih ke layar login / ganti profil demo', 'info');
                     }}
-                    className="block px-3.5 py-1.5 hover:bg-slate-50 text-blue-600 font-semibold transition"
+                    className="block px-4 py-2 hover:bg-[#131C35] text-amber-300 font-semibold transition"
                   >
                     Ganti Profil Demo
                   </Link>
                 </div>
 
-                <div className="pt-1 border-t border-slate-100">
+                <div className="pt-1.5 border-t border-[#19243C]">
                   <button
                     onClick={() => {
                       setShowProfileMenu(false);
                       showToast('Anda telah keluar dari sistem (Logout).', 'info');
                       window.location.href = '/login';
                     }}
-                    className="w-full text-left px-3.5 py-1.5 hover:bg-rose-50 text-rose-600 font-semibold transition"
+                    className="w-full text-left px-4 py-2 hover:bg-rose-950/40 text-rose-400 font-semibold transition"
                   >
                     Keluar (Logout)
                   </button>

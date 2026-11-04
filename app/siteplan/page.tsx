@@ -25,6 +25,7 @@ import {
 import { DEMO_PROJECTS, DEMO_LEADS } from '@/lib/demo-data';
 import { buildWhatsAppLink, formatPhoneDisplay } from '@/lib/whatsapp';
 import { useToast } from '@/components/ui/Toast';
+import InstantBookingFeeModal from '@/components/proptech/InstantBookingFeeModal';
 
 interface LotUnit {
   id: string;
@@ -600,120 +601,41 @@ export default function InteractiveSiteplanPage() {
 
       </div>
 
-      {/* Booking Modal Dialog */}
+      {/* Instant QRIS / VA Booking Gateway Modal */}
       {isBookingModalOpen && activeLot && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-fadeIn">
-          <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-scaleUp">
-            
-            <div className="bg-gradient-to-r from-[#0A0F1D] to-[#1E293B] text-white p-5 flex items-center justify-between">
-              <div>
-                <h3 className="font-bold text-base">Kunci Reservasi Kavling {activeLot.code}</h3>
-                <p className="text-xs text-slate-400">{currentProject.name}</p>
-              </div>
-              <button 
-                onClick={() => setIsBookingModalOpen(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <form onSubmit={handleConfirmBooking} className="p-6 space-y-4 text-xs">
-              <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
-                  Nama Lengkap Pemesan
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={buyerName}
-                  onChange={(e) => setBuyerName(e.target.value)}
-                  placeholder="Contoh: Bapak Hasanudin"
-                  className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs font-semibold"
-                />
-              </div>
-
-              <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
-                  Nomor HP / WhatsApp
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={buyerPhone}
-                  onChange={(e) => setBuyerPhone(e.target.value)}
-                  placeholder="Contoh: 082215269402"
-                  className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs font-mono"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
-                    Skema Pembayaran
-                  </label>
-                  <select
-                    value={paymentMethod}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="w-full px-3 py-2.5 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs font-medium"
-                  >
-                    <option value="KPR Subsidi FLPP">KPR Subsidi FLPP</option>
-                    <option value="KPR Komersial">KPR Komersial</option>
-                    <option value="Cash Keras">Cash Keras</option>
-                    <option value="Cash Bertahap">Cash Bertahap 6 Bln</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
-                    Tanda Jadi (Booking Fee)
-                  </label>
-                  <input
-                    type="number"
-                    value={bookingFee}
-                    onChange={(e) => setBookingFee(e.target.value)}
-                    className="w-full px-3 py-2.5 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs font-mono"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
-                  PIC Marketing Konsultan
-                </label>
-                <select
-                  value={marketingPic}
-                  onChange={(e) => setMarketingPic(e.target.value)}
-                  className="w-full px-3 py-2.5 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs font-medium"
-                >
-                  <option value="Kang Dika Pratama">Kang Dika Pratama (Head of Marketing)</option>
-                  <option value="Teh Nisa Andriani">Teh Nisa Andriani (Senior Consultant)</option>
-                  <option value="Kang Fajar Ramadhan">Kang Fajar Ramadhan (Sales Executive)</option>
-                </select>
-              </div>
-
-              <div className="p-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 text-[11px] leading-relaxed">
-                Tanda Jadi akan otomatis diterbitkan ke Rekening Escrow PT Garut Sejahtera Propertindo dan status kavling langsung terkunci di sistem.
-              </div>
-
-              <div className="pt-2 flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => setIsBookingModalOpen(false)}
-                  className="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold transition"
-                >
-                  Batal
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition shadow-sm shadow-blue-500/30"
-                >
-                  Konfirmasi Booking
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+        <InstantBookingFeeModal
+          isOpen={isBookingModalOpen}
+          onClose={() => setIsBookingModalOpen(false)}
+          kavlingCode={activeLot.code}
+          projectName={currentProject.name}
+          unitPrice={activeLot.price}
+          onPaymentSuccess={(kavlingCode, receiptData) => {
+            setLots(prev => {
+              const updated = { ...prev };
+              updated[selectedProjectId] = updated[selectedProjectId].map(l => {
+                if (l.code === kavlingCode) {
+                  return {
+                    ...l,
+                    status: 'booked',
+                    buyerName: receiptData.buyerName,
+                    buyerPhone: receiptData.buyerPhone,
+                    bookingCode: receiptData.transactionId,
+                    marketingName: 'Kang Dika Pratama'
+                  };
+                }
+                return l;
+              });
+              return updated;
+            });
+            setActiveLot(prev => prev ? {
+              ...prev,
+              status: 'booked',
+              buyerName: receiptData.buyerName,
+              buyerPhone: receiptData.buyerPhone,
+              bookingCode: receiptData.transactionId
+            } : null);
+          }}
+        />
       )}
 
     </div>
